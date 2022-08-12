@@ -5,10 +5,10 @@ import cookieParser from "cookie-parser";
 import chalk from "chalk";
 import cors from "cors";
 //////////////////////////////////////////////////////////////////
-// import commentRoutes from "./routes/comments.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import videoRoutes from "./routes/videos.js";
+import commentRoutes from "./routes/comments.js";
 
 const app = express();
 

@@ -5,10 +5,10 @@ import cookieParser from "cookie-parser";
 import chalk from "chalk";
 import cors from "cors";
 //////////////////////////////////////////////////////////////////
-// import userRoutes from "./routes/users.js";
 // import videoRoutes from "./routes/videos.js";
 // import commentRoutes from "./routes/comments.js";
 import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
 
 const app = express();
 
@@ -19,8 +19,7 @@ app.use(cors());
 //////////////////////////////////////////////////////////////////
 
 app.use("/api/auth", authRoutes);
-
-
+app.use("/api/users", userRoutes);
 
 dotenv.config();
 const start = async () => {

@@ -11,7 +11,7 @@ import {
   sub,
   trend,
 } from "../controllers/videosController.js";
-import { verifyToken } from "../utils/verifyToken.js";
+import { verifyToken } from "../verifyToken.js";
 
 const router = express.Router();
 

@@ -35,7 +35,6 @@ export const signIn = async (req, res, next) => {
       })
       .status(200)
       .json(others);
-    console.log(res.cookie);
   } catch (error) {
     next(error);
   }

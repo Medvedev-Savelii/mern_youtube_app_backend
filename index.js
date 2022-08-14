@@ -11,16 +11,22 @@ import videoRoutes from "./routes/videos.js";
 import commentRoutes from "./routes/comments.js";
 
 const app = express();
-
+let corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
 //middlewares
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
+
 //////////////////////////////////////////////////////////////////
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/videos", videoRoutes);
+app.use("/api/comments", commentRoutes);
 
 dotenv.config();
 const start = async () => {

@@ -8,23 +8,23 @@ import {
   like,
   dislike,
 } from "../controllers/usersController.js";
-import { verifyToken } from "../verifyToken.js";
+import authMiddleWare from "../authMiddleWare.js";
 
 const router = express.Router();
 
 //update user
-router.put("/:id", verifyToken, update);
+router.put("/:id", authMiddleWare, update);
 //delete user
-router.delete("/:id", verifyToken, deleteUser);
+router.delete("/:id", authMiddleWare, deleteUser);
 //get a user
 router.get("/find/:id", getUser);
 //subscribe a user
-router.put("/sub/:id", verifyToken, subscribe);
+router.put("/sub/:id", authMiddleWare, subscribe);
 //unsubscribe a user
-router.put("/unsub/:id", verifyToken, unsubscribe);
+router.put("/unsub/:id", authMiddleWare, unsubscribe);
 //like a video
-router.put("/like/:videoId", verifyToken, like);
+router.put("/like/:videoId", authMiddleWare, like);
 //dislike a video
-router.put("/dislike/:videoId", verifyToken, dislike);
+router.put("/dislike/:videoId", authMiddleWare, dislike);
 
 export default router;

@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import chalk from "chalk";
 import cors from "cors";
+import bodyParser from "body-parser";
+
 //////////////////////////////////////////////////////////////////
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
@@ -11,22 +13,14 @@ import videoRoutes from "./routes/videos.js";
 import commentRoutes from "./routes/comments.js";
 
 const app = express();
-let corsOptions = {
-  origin: "http://localhost:3000",
-  credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
-};
+
 //middlewares
-app.use(cookieParser());
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(cors());
 app.use(express.json());
-app.use(cors(corsOptions));
 
 //////////////////////////////////////////////////////////////////
-
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/videos", videoRoutes);
-app.use("/api/comments", commentRoutes);
 
 dotenv.config();
 const start = async () => {
@@ -50,6 +44,11 @@ const start = async () => {
   }
 };
 start();
+
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/videos", videoRoutes);
+app.use("/api/comments", commentRoutes);
 
 //error handler
 app.use((err, req, res, next) => {

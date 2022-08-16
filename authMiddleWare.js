@@ -1,19 +1,14 @@
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+import { createError } from "./error.js";
 
-dotenv.config();
-const secret = process.env.JWT;
-const authMiddleWare = async (req, res, next) => {
-  try {
-    const token = req.headers.authorization.split(" ")[1];
-    if (token) {
-      const decoded = jwt.verify(token, secret);
-      req.user = decoded;
-    }
+export const authMiddleWare = (req, res, next) => {
+  const token = req.cookies.access_token;
+  if (!token) return next(createError(401, "You are not authenticated!"));
+
+  jwt.verify(token, process.env.JWT, (err, user) => {
+    if (err) return next(createError(403, "Token is not valid!"));
+    req.user = user;
     next();
-  } catch (error) {
-    console.log(error);
-  }
+  });
 };
-
 export default authMiddleWare;
